@@ -1,0 +1,8 @@
+{
+  "name": "CVfy AI – Crea CV per Canva & Agente Joinrs",
+  "description": "Crea il tuo Curriculum Vitae potenziato da AI, esporta in PDF pronto da importare e modificare su Canva, e genera il tuo agente personalizzato per Joinrs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
