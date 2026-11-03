@@ -10,8 +10,6 @@ import {
   Trash2,
   ChevronDown,
   ChevronUp,
-  Check,
-  RefreshCw,
   Lightbulb,
 } from 'lucide-react';
 import { CVData, ExperienceItem, EducationItem } from '../types';
@@ -238,22 +236,22 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
 
   return (
     <div className="space-y-4">
-      {/* Quick AI Bar */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/70 via-slate-900 to-purple-950/60 border border-indigo-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
+      {/* Minimal AI Quick Bar */}
+      <div className="p-4 rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-            <Sparkles className="w-5 h-5 animate-pulse" />
+          <div className="w-9 h-9 rounded-xl bg-zinc-950 border border-zinc-700 flex items-center justify-center text-white">
+            <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white">Assistente AI per CV</h3>
-            <p className="text-xs text-slate-400">
+            <h3 className="text-xs font-bold text-white uppercase tracking-wider">Assistente AI</h3>
+            <p className="text-xs text-zinc-400">
               Genera o compila l'intero CV da zero per il tuo ruolo target
             </p>
           </div>
         </div>
         <button
           onClick={onOpenWizard}
-          className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-md"
+          className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-zinc-200 text-black text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm shrink-0"
           aria-label="Apri generatore rapido AI"
         >
           <Sparkles className="w-3.5 h-3.5" />
@@ -261,102 +259,104 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
         </button>
       </div>
 
-      {/* Section Accordions */}
-      <div className="space-y-3">
+      {/* Minimal Section Accordions */}
+      <div className="space-y-2.5">
         {/* 1. Dati Personali */}
-        <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
           <button
             onClick={() => setActiveSection(activeSection === 'personal' ? ('' as any) : 'personal')}
-            className="w-full px-4 py-3.5 flex items-center justify-between bg-slate-900/80 hover:bg-slate-800/60 transition-colors text-left"
+            className="w-full px-4 py-3.5 flex items-center justify-between bg-zinc-900 hover:bg-zinc-800/80 transition-colors text-left cursor-pointer"
             aria-expanded={activeSection === 'personal'}
           >
             <div className="flex items-center gap-2.5">
-              <User className="w-4 h-4 text-indigo-400" />
-              <span className="font-semibold text-sm text-slate-200">1. Dati Personali & Contatti</span>
+              <User className="w-4 h-4 text-zinc-300" />
+              <span className="font-semibold text-xs uppercase tracking-wider text-zinc-100">
+                1. Dati Personali & Contatti
+              </span>
             </div>
             {activeSection === 'personal' ? (
-              <ChevronUp className="w-4 h-4 text-slate-400" />
+              <ChevronUp className="w-4 h-4 text-zinc-400" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-400" />
+              <ChevronDown className="w-4 h-4 text-zinc-400" />
             )}
           </button>
 
           {activeSection === 'personal' && (
-            <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-3.5 border-t border-slate-800/80">
+            <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-3.5 border-t border-zinc-800">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Nome e Cognome</label>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">Nome e Cognome</label>
                 <input
                   type="text"
                   value={cv.personal.fullName}
                   onChange={(e) => handlePersonalChange('fullName', e.target.value)}
                   placeholder="Es. Marco Rossi"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3 py-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Titolo Professionale Target</label>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">Titolo Professionale Target</label>
                 <input
                   type="text"
                   value={cv.personal.jobTitle}
                   onChange={(e) => handlePersonalChange('jobTitle', e.target.value)}
                   placeholder="Es. Senior Product Manager"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3 py-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Email</label>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">Email</label>
                 <input
                   type="email"
                   value={cv.personal.email}
                   onChange={(e) => handlePersonalChange('email', e.target.value)}
                   placeholder="m.rossi@email.it"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3 py-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Telefono</label>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">Telefono</label>
                 <input
                   type="tel"
                   value={cv.personal.phone}
                   onChange={(e) => handlePersonalChange('phone', e.target.value)}
                   placeholder="+39 347 123 4567"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3 py-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Città & Nazione</label>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">Città & Nazione</label>
                 <input
                   type="text"
                   value={cv.personal.location}
                   onChange={(e) => handlePersonalChange('location', e.target.value)}
                   placeholder="Milano, Italia"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3 py-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Profilo LinkedIn</label>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">Profilo LinkedIn</label>
                 <input
                   type="text"
                   value={cv.personal.linkedin}
                   onChange={(e) => handlePersonalChange('linkedin', e.target.value)}
                   placeholder="linkedin.com/in/marcorossi"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3 py-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                 />
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-xs font-medium text-slate-300 mb-1">Sito Web / Portfolio (Opzionale)</label>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">Sito Web / Portfolio (Opzionale)</label>
                 <input
                   type="text"
                   value={cv.personal.website || ''}
                   onChange={(e) => handlePersonalChange('website', e.target.value)}
                   placeholder="marcorossi.it o github.com/marcorossi"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3 py-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                 />
               </div>
             </div>
@@ -364,37 +364,39 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
         </div>
 
         {/* 2. Profilo Professionale / Summary */}
-        <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
           <button
             onClick={() => setActiveSection(activeSection === 'summary' ? ('' as any) : 'summary')}
-            className="w-full px-4 py-3.5 flex items-center justify-between bg-slate-900/80 hover:bg-slate-800/60 transition-colors text-left"
+            className="w-full px-4 py-3.5 flex items-center justify-between bg-zinc-900 hover:bg-zinc-800/80 transition-colors text-left cursor-pointer"
             aria-expanded={activeSection === 'summary'}
           >
             <div className="flex items-center gap-2.5">
-              <Lightbulb className="w-4 h-4 text-amber-400" />
-              <span className="font-semibold text-sm text-slate-200">2. Sommario Professionale (Bio)</span>
+              <Lightbulb className="w-4 h-4 text-zinc-300" />
+              <span className="font-semibold text-xs uppercase tracking-wider text-zinc-100">
+                2. Sommario Professionale (Bio)
+              </span>
             </div>
             {activeSection === 'summary' ? (
-              <ChevronUp className="w-4 h-4 text-slate-400" />
+              <ChevronUp className="w-4 h-4 text-zinc-400" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-400" />
+              <ChevronDown className="w-4 h-4 text-zinc-400" />
             )}
           </button>
 
           {activeSection === 'summary' && (
-            <div className="p-4 space-y-3 border-t border-slate-800/80">
+            <div className="p-4 space-y-3 border-t border-zinc-800">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-400">
+                <span className="text-xs text-zinc-500">
                   {cv.summary ? cv.summary.trim().split(/\s+/).length : 0} parole (consigliate: 35-60)
                 </span>
                 <button
                   onClick={handleEnhanceSummary}
                   disabled={isEnhancingSummary}
-                  className="px-3 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
+                  className="px-3 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white border border-zinc-700 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-50"
                   aria-label="Migliora bio con AI"
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>{isEnhancingSummary ? 'Generazione...' : 'Migliora con AI (3 opzioni)'}</span>
+                  <Sparkles className="w-3.5 h-3.5 text-zinc-300" />
+                  <span>{isEnhancingSummary ? 'Generazione...' : 'Ottimizza Bio con AI'}</span>
                 </button>
               </div>
 
@@ -402,15 +404,15 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                 rows={4}
                 value={cv.summary}
                 onChange={(e) => onChange({ ...cv, summary: e.target.value })}
-                placeholder="Descrivi brevemente il tuo percorso, i tuoi punti di forza chiave e gli obiettivi professionali..."
-                className="w-full px-3 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500 leading-relaxed"
+                placeholder="Descrivi brevemente il tuo percorso, i punti di forza e gli obiettivi professionali..."
+                className="w-full px-3 py-2.5 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white leading-relaxed"
               />
 
               {/* AI Suggestions dropdown if available */}
               {summaryOptions.length > 0 && (
-                <div className="p-3 rounded-lg bg-slate-950 border border-indigo-500/30 space-y-2">
-                  <span className="text-xs font-semibold text-indigo-400 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" /> Opzioni generate dall'AI (clicca per applicare):
+                <div className="p-3 rounded-lg bg-zinc-950 border border-zinc-700 space-y-2">
+                  <span className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+                    <Sparkles className="w-3 h-3 text-white" /> Opzioni generate (clicca per applicare):
                   </span>
                   <div className="space-y-2">
                     {summaryOptions.map((opt, i) => (
@@ -420,10 +422,10 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                           onChange({ ...cv, summary: opt });
                           setSummaryOptions([]);
                         }}
-                        className="p-2.5 rounded-md bg-slate-900 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/40 cursor-pointer text-xs text-slate-300 hover:text-white transition-all flex items-start justify-between gap-2"
+                        className="p-2.5 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-600 cursor-pointer text-xs text-zinc-300 hover:text-white transition-all flex items-start justify-between gap-2"
                       >
                         <p className="leading-relaxed">{opt}</p>
-                        <span className="shrink-0 px-2 py-0.5 rounded text-[10px] bg-indigo-500/20 text-indigo-300 font-medium">
+                        <span className="shrink-0 px-2 py-0.5 rounded text-[10px] bg-white text-black font-semibold">
                           Usa questa
                         </span>
                       </div>
@@ -436,34 +438,34 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
         </div>
 
         {/* 3. Esperienze Lavorative */}
-        <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
           <button
             onClick={() => setActiveSection(activeSection === 'exp' ? ('' as any) : 'exp')}
-            className="w-full px-4 py-3.5 flex items-center justify-between bg-slate-900/80 hover:bg-slate-800/60 transition-colors text-left"
+            className="w-full px-4 py-3.5 flex items-center justify-between bg-zinc-900 hover:bg-zinc-800/80 transition-colors text-left cursor-pointer"
             aria-expanded={activeSection === 'exp'}
           >
             <div className="flex items-center gap-2.5">
-              <Briefcase className="w-4 h-4 text-cyan-400" />
-              <span className="font-semibold text-sm text-slate-200">
+              <Briefcase className="w-4 h-4 text-zinc-300" />
+              <span className="font-semibold text-xs uppercase tracking-wider text-zinc-100">
                 3. Esperienze Lavorative ({cv.experiences.length})
               </span>
             </div>
             {activeSection === 'exp' ? (
-              <ChevronUp className="w-4 h-4 text-slate-400" />
+              <ChevronUp className="w-4 h-4 text-zinc-400" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-400" />
+              <ChevronDown className="w-4 h-4 text-zinc-400" />
             )}
           </button>
 
           {activeSection === 'exp' && (
-            <div className="p-4 space-y-5 border-t border-slate-800/80">
+            <div className="p-4 space-y-4 border-t border-zinc-800">
               <div className="flex justify-between items-center">
-                <p className="text-xs text-slate-400">
-                  Usa il metodo STAR (Azione + Risultato quantificabile) per ciascun punto
+                <p className="text-xs text-zinc-500">
+                  Usa il metodo STAR (Azione + Risultato) per ciascun punto
                 </p>
                 <button
                   onClick={handleAddExperience}
-                  className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-black text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                   aria-label="Aggiungi nuova esperienza"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -474,76 +476,76 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
               {cv.experiences.map((exp, expIdx) => (
                 <div
                   key={exp.id}
-                  className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 space-y-3.5 relative"
+                  className="p-4 rounded-xl bg-zinc-950 border border-zinc-800 space-y-3.5 relative"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
+                    <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
                       Esperienza #{expIdx + 1}
                     </span>
                     <button
                       onClick={() => handleRemoveExperience(exp.id)}
-                      className="p-1 rounded-md text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                      className="p-1 rounded-md text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
                       title="Elimina esperienza"
                       aria-label={`Elimina esperienza ${exp.role}`}
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Ruolo / Job Title</label>
+                      <label className="block text-[11px] font-medium text-zinc-400 mb-1">Ruolo</label>
                       <input
                         type="text"
                         value={exp.role}
                         onChange={(e) => handleUpdateExperience(exp.id, 'role', e.target.value)}
                         placeholder="Es. Senior Specialist"
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Azienda</label>
+                      <label className="block text-[11px] font-medium text-zinc-400 mb-1">Azienda</label>
                       <input
                         type="text"
                         value={exp.company}
                         onChange={(e) => handleUpdateExperience(exp.id, 'company', e.target.value)}
                         placeholder="Nome Azienda"
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Località</label>
+                      <label className="block text-[11px] font-medium text-zinc-400 mb-1">Località</label>
                       <input
                         type="text"
                         value={exp.location}
                         onChange={(e) => handleUpdateExperience(exp.id, 'location', e.target.value)}
-                        placeholder="Milano, Italia (oppure Remoto)"
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                        placeholder="Milano, Italia (o Remoto)"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                     </div>
 
                     <div className="flex gap-2 items-center">
                       <div className="flex-1">
-                        <label className="block text-[11px] font-medium text-slate-400 mb-1">Data Inizio</label>
+                        <label className="block text-[11px] font-medium text-zinc-400 mb-1">Data Inizio</label>
                         <input
                           type="text"
                           value={exp.startDate}
                           onChange={(e) => handleUpdateExperience(exp.id, 'startDate', e.target.value)}
-                          placeholder="2022 o Mar 2022"
-                          className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                          placeholder="2022"
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                         />
                       </div>
                       <div className="flex-1">
-                        <label className="block text-[11px] font-medium text-slate-400 mb-1">Data Fine</label>
+                        <label className="block text-[11px] font-medium text-zinc-400 mb-1">Data Fine</label>
                         <input
                           type="text"
                           disabled={exp.current}
                           value={exp.current ? 'Presente' : exp.endDate}
                           onChange={(e) => handleUpdateExperience(exp.id, 'endDate', e.target.value)}
                           placeholder="2024"
-                          className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500 disabled:opacity-50"
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white disabled:opacity-50"
                         />
                       </div>
                     </div>
@@ -555,42 +557,42 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                       id={`current-${exp.id}`}
                       checked={exp.current}
                       onChange={(e) => handleUpdateExperience(exp.id, 'current', e.target.checked)}
-                      className="rounded border-slate-700 text-indigo-600 focus:ring-0"
+                      className="rounded border-zinc-700 text-black focus:ring-0"
                     />
-                    <label htmlFor={`current-${exp.id}`} className="text-xs text-slate-300">
+                    <label htmlFor={`current-${exp.id}`} className="text-xs text-zinc-300">
                       Lavoro attualmente in questa posizione
                     </label>
                   </div>
 
                   {/* Bullet points */}
-                  <div className="space-y-2 pt-2 border-t border-slate-800/80">
+                  <div className="space-y-2 pt-2 border-t border-zinc-800">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-slate-300">
+                      <span className="text-xs font-semibold text-zinc-300">
                         Punti elenco & Risultati misurabili ({exp.bullets?.length || 0})
                       </span>
                       <button
                         onClick={() => handleOptimizeBullets(exp.id, exp.role, exp.company, exp.bullets || [])}
                         disabled={optimizingExpId === exp.id}
-                        className="px-2.5 py-1 rounded-md bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30 text-[11px] font-medium flex items-center gap-1 transition-colors disabled:opacity-50"
+                        className="px-2.5 py-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 text-[11px] font-medium flex items-center gap-1 transition-colors disabled:opacity-50 cursor-pointer"
                         aria-label="Genera punti STAR con AI"
                       >
-                        <Sparkles className="w-3 h-3" />
-                        <span>{optimizingExpId === exp.id ? 'Ottimizzazione...' : 'Genera punti STAR con AI'}</span>
+                        <Sparkles className="w-3 h-3 text-zinc-400" />
+                        <span>{optimizingExpId === exp.id ? 'Ottimizzazione...' : 'Ottimizza Punti con AI'}</span>
                       </button>
                     </div>
 
                     {exp.bullets?.map((bullet, bIdx) => (
                       <div key={bIdx} className="flex items-start gap-2">
-                        <span className="text-xs text-indigo-400 font-bold mt-2">•</span>
+                        <span className="text-xs text-zinc-500 font-bold mt-2">•</span>
                         <textarea
                           rows={2}
                           value={bullet}
                           onChange={(e) => handleUpdateBullet(exp.id, bIdx, e.target.value)}
-                          className="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+                          className="flex-1 px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-zinc-200 focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                         />
                         <button
                           onClick={() => handleRemoveBullet(exp.id, bIdx)}
-                          className="p-1 text-slate-500 hover:text-red-400 transition-colors mt-1"
+                          className="p-1 text-zinc-500 hover:text-white transition-colors mt-1 cursor-pointer"
                           title="Rimuovi punto"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -600,7 +602,7 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
 
                     <button
                       onClick={() => handleAddBullet(exp.id)}
-                      className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 mt-1 cursor-pointer"
+                      className="text-xs text-zinc-400 hover:text-white font-medium flex items-center gap-1 mt-1 cursor-pointer transition-colors"
                     >
                       <Plus className="w-3 h-3" /> Aggiungi punto elenco
                     </button>
@@ -612,32 +614,32 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
         </div>
 
         {/* 4. Formazione */}
-        <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
           <button
             onClick={() => setActiveSection(activeSection === 'edu' ? ('' as any) : 'edu')}
-            className="w-full px-4 py-3.5 flex items-center justify-between bg-slate-900/80 hover:bg-slate-800/60 transition-colors text-left"
+            className="w-full px-4 py-3.5 flex items-center justify-between bg-zinc-900 hover:bg-zinc-800/80 transition-colors text-left cursor-pointer"
             aria-expanded={activeSection === 'edu'}
           >
             <div className="flex items-center gap-2.5">
-              <GraduationCap className="w-4 h-4 text-emerald-400" />
-              <span className="font-semibold text-sm text-slate-200">
+              <GraduationCap className="w-4 h-4 text-zinc-300" />
+              <span className="font-semibold text-xs uppercase tracking-wider text-zinc-100">
                 4. Formazione & Istruzione ({cv.education.length})
               </span>
             </div>
             {activeSection === 'edu' ? (
-              <ChevronUp className="w-4 h-4 text-slate-400" />
+              <ChevronUp className="w-4 h-4 text-zinc-400" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-400" />
+              <ChevronDown className="w-4 h-4 text-zinc-400" />
             )}
           </button>
 
           {activeSection === 'edu' && (
-            <div className="p-4 space-y-4 border-t border-slate-800/80">
+            <div className="p-4 space-y-4 border-t border-zinc-800">
               <div className="flex justify-between items-center">
-                <p className="text-xs text-slate-400">Inserisci titoli accademici, master o diplomi</p>
+                <p className="text-xs text-zinc-500">Inserisci titoli accademici, master o diplomi</p>
                 <button
                   onClick={handleAddEducation}
-                  className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-black text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                   aria-label="Aggiungi formazione"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -646,57 +648,57 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
               </div>
 
               {cv.education.map((edu, eduIdx) => (
-                <div key={edu.id} className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-3">
+                <div key={edu.id} className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800 space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                    <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
                       Titolo #{eduIdx + 1}
                     </span>
                     <button
                       onClick={() => handleRemoveEducation(edu.id)}
-                      className="p-1 rounded-md text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                      className="p-1 rounded-md text-zinc-500 hover:text-white transition-colors cursor-pointer"
                       title="Elimina formazione"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Istituzione / Università</label>
+                      <label className="block text-[11px] font-medium text-zinc-400 mb-1">Istituzione / Università</label>
                       <input
                         type="text"
                         value={edu.institution}
                         onChange={(e) => handleUpdateEducation(edu.id, 'institution', e.target.value)}
                         placeholder="Es. Politecnico di Milano"
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Titolo di Studio</label>
+                      <label className="block text-[11px] font-medium text-zinc-400 mb-1">Titolo di Studio</label>
                       <input
                         type="text"
                         value={edu.degree}
                         onChange={(e) => handleUpdateEducation(edu.id, 'degree', e.target.value)}
                         placeholder="Es. Laurea Magistrale"
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-medium text-slate-400 mb-1">Campo / Indirizzo</label>
+                      <label className="block text-[11px] font-medium text-zinc-400 mb-1">Campo / Indirizzo</label>
                       <input
                         type="text"
                         value={edu.field}
                         onChange={(e) => handleUpdateEducation(edu.id, 'field', e.target.value)}
                         placeholder="Es. Ingegneria Gestionale"
-                        className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                     </div>
 
                     <div className="flex gap-2">
                       <div className="flex-1">
-                        <label className="block text-[11px] font-medium text-slate-400 mb-1">Anni (es. 2018-2020)</label>
+                        <label className="block text-[11px] font-medium text-zinc-400 mb-1">Anni</label>
                         <input
                           type="text"
                           value={`${edu.startDate}${edu.endDate ? ` - ${edu.endDate}` : ''}`}
@@ -705,17 +707,17 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                             handleUpdateEducation(edu.id, 'startDate', parts[0]?.trim() || '');
                             handleUpdateEducation(edu.id, 'endDate', parts[1]?.trim() || '');
                           }}
-                          className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                         />
                       </div>
-                      <div className="w-28">
-                        <label className="block text-[11px] font-medium text-slate-400 mb-1">Voto (Opz.)</label>
+                      <div className="w-24">
+                        <label className="block text-[11px] font-medium text-zinc-400 mb-1">Voto</label>
                         <input
                           type="text"
                           value={edu.grade || ''}
                           onChange={(e) => handleUpdateEducation(edu.id, 'grade', e.target.value)}
                           placeholder="110L"
-                          className="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-sm text-white focus:outline-none focus:border-indigo-500"
+                          className="w-full px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                         />
                       </div>
                     </div>
@@ -727,42 +729,42 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
         </div>
 
         {/* 5. Competenze Hard & Soft */}
-        <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
           <button
             onClick={() => setActiveSection(activeSection === 'skills' ? ('' as any) : 'skills')}
-            className="w-full px-4 py-3.5 flex items-center justify-between bg-slate-900/80 hover:bg-slate-800/60 transition-colors text-left"
+            className="w-full px-4 py-3.5 flex items-center justify-between bg-zinc-900 hover:bg-zinc-800/80 transition-colors text-left cursor-pointer"
             aria-expanded={activeSection === 'skills'}
           >
             <div className="flex items-center gap-2.5">
-              <Wrench className="w-4 h-4 text-purple-400" />
-              <span className="font-semibold text-sm text-slate-200">
-                5. Competenze Hard ({cv.hardSkills.length}) & Soft ({cv.softSkills.length})
+              <Wrench className="w-4 h-4 text-zinc-300" />
+              <span className="font-semibold text-xs uppercase tracking-wider text-zinc-100">
+                5. Competenze Tecniche & Soft Skills
               </span>
             </div>
             {activeSection === 'skills' ? (
-              <ChevronUp className="w-4 h-4 text-slate-400" />
+              <ChevronUp className="w-4 h-4 text-zinc-400" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-400" />
+              <ChevronDown className="w-4 h-4 text-zinc-400" />
             )}
           </button>
 
           {activeSection === 'skills' && (
-            <div className="p-4 space-y-4 border-t border-slate-800/80">
+            <div className="p-4 space-y-4 border-t border-zinc-800">
               {/* Hard Skills */}
               <div className="space-y-2">
-                <label className="block text-xs font-bold text-slate-300">
+                <label className="block text-xs font-bold text-zinc-300">
                   Competenze Tecniche (Hard Skills)
                 </label>
                 <div className="flex flex-wrap gap-1.5">
                   {cv.hardSkills.map((skill) => (
                     <span
                       key={skill}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-500/15 text-indigo-300 border border-indigo-500/30"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-800 text-zinc-200 border border-zinc-700"
                     >
                       {skill}
                       <button
                         onClick={() => handleRemoveHardSkill(skill)}
-                        className="hover:text-red-400"
+                        className="hover:text-white cursor-pointer"
                         title="Rimuovi"
                       >
                         ×
@@ -776,12 +778,12 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                     value={newHardSkill}
                     onChange={(e) => setNewHardSkill(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddHardSkill()}
-                    placeholder="Aggiungi competenza (es. Python, Figma, SQL)..."
-                    className="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    placeholder="Es. Python, TypeScript, Figma..."
+                    className="flex-1 px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                   />
                   <button
                     onClick={handleAddHardSkill}
-                    className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white text-xs font-semibold cursor-pointer"
                   >
                     + Aggiungi
                   </button>
@@ -789,20 +791,20 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
               </div>
 
               {/* Soft Skills */}
-              <div className="space-y-2 pt-3 border-t border-slate-800">
-                <label className="block text-xs font-bold text-slate-300">
+              <div className="space-y-2 pt-3 border-t border-zinc-800">
+                <label className="block text-xs font-bold text-zinc-300">
                   Competenze Trasversali (Soft Skills)
                 </label>
                 <div className="flex flex-wrap gap-1.5">
                   {cv.softSkills.map((skill) => (
                     <span
                       key={skill}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-zinc-800 text-zinc-200 border border-zinc-700"
                     >
                       {skill}
                       <button
                         onClick={() => handleRemoveSoftSkill(skill)}
-                        className="hover:text-red-400"
+                        className="hover:text-white cursor-pointer"
                         title="Rimuovi"
                       >
                         ×
@@ -816,12 +818,12 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                     value={newSoftSkill}
                     onChange={(e) => setNewSoftSkill(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddSoftSkill()}
-                    placeholder="Aggiungi soft skill (es. Problem Solving, Leadership)..."
-                    className="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
+                    placeholder="Es. Problem Solving, Leadership..."
+                    className="flex-1 px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                   />
                   <button
                     onClick={handleAddSoftSkill}
-                    className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white text-xs font-semibold cursor-pointer"
                   >
                     + Aggiungi
                   </button>
@@ -832,34 +834,34 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
         </div>
 
         {/* 6. Lingue & Certificazioni */}
-        <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 overflow-hidden">
           <button
             onClick={() => setActiveSection(activeSection === 'langs' ? ('' as any) : 'langs')}
-            className="w-full px-4 py-3.5 flex items-center justify-between bg-slate-900/80 hover:bg-slate-800/60 transition-colors text-left"
+            className="w-full px-4 py-3.5 flex items-center justify-between bg-zinc-900 hover:bg-zinc-800/80 transition-colors text-left cursor-pointer"
             aria-expanded={activeSection === 'langs'}
           >
             <div className="flex items-center gap-2.5">
-              <Globe className="w-4 h-4 text-sky-400" />
-              <span className="font-semibold text-sm text-slate-200">
+              <Globe className="w-4 h-4 text-zinc-300" />
+              <span className="font-semibold text-xs uppercase tracking-wider text-zinc-100">
                 6. Lingue Straniere & Certificazioni
               </span>
             </div>
             {activeSection === 'langs' ? (
-              <ChevronUp className="w-4 h-4 text-slate-400" />
+              <ChevronUp className="w-4 h-4 text-zinc-400" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-400" />
+              <ChevronDown className="w-4 h-4 text-zinc-400" />
             )}
           </button>
 
           {activeSection === 'langs' && (
-            <div className="p-4 space-y-4 border-t border-slate-800/80">
+            <div className="p-4 space-y-4 border-t border-zinc-800">
               {/* Languages */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-slate-300">Lingue Conosciute</span>
+                  <span className="text-xs font-bold text-zinc-300">Lingue Conosciute</span>
                   <button
                     onClick={handleAddLanguage}
-                    className="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1 cursor-pointer"
+                    className="text-xs text-zinc-400 hover:text-white font-medium flex items-center gap-1 cursor-pointer transition-colors"
                   >
                     <Plus className="w-3 h-3" /> Aggiungi Lingua
                   </button>
@@ -872,18 +874,18 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                         value={l.language}
                         onChange={(e) => handleUpdateLanguage(idx, 'language', e.target.value)}
                         placeholder="Lingua"
-                        className="w-1/2 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                        className="w-1/2 px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                       <input
                         type="text"
                         value={l.level}
                         onChange={(e) => handleUpdateLanguage(idx, 'level', e.target.value)}
-                        placeholder="Livello (es. Madrelingua, C1)"
-                        className="w-1/2 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white"
+                        placeholder="Livello"
+                        className="w-1/2 px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                       />
                       <button
                         onClick={() => handleRemoveLanguage(idx)}
-                        className="p-1 text-slate-500 hover:text-red-400"
+                        className="p-1 text-zinc-500 hover:text-white cursor-pointer"
                         title="Rimuovi"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -894,15 +896,15 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
               </div>
 
               {/* Certifications */}
-              <div className="space-y-2 pt-3 border-t border-slate-800">
-                <span className="text-xs font-bold text-slate-300">Certificazioni Professionali</span>
+              <div className="space-y-2 pt-3 border-t border-zinc-800">
+                <span className="text-xs font-bold text-zinc-300">Certificazioni Professionali</span>
                 <div className="space-y-1.5">
                   {cv.certifications.map((cert, cIdx) => (
-                    <div key={cIdx} className="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-300">
+                    <div key={cIdx} className="flex items-center justify-between p-2 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-zinc-300">
                       <span>{cert}</span>
                       <button
                         onClick={() => handleRemoveCert(cIdx)}
-                        className="text-slate-500 hover:text-red-400 ml-2"
+                        className="text-zinc-500 hover:text-white ml-2 cursor-pointer"
                       >
                         ×
                       </button>
@@ -915,12 +917,12 @@ export const CvEditor: React.FC<CvEditorProps> = ({ cv, onChange, onOpenWizard }
                     value={newCert}
                     onChange={(e) => setNewCert(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleAddCert()}
-                    placeholder="Es. Scrum Master, Google Analytics Certificate..."
-                    className="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-indigo-500"
+                    placeholder="Es. Scrum Master, AWS Cloud Practitioner..."
+                    className="flex-1 px-2.5 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-xs text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white"
                   />
                   <button
                     onClick={handleAddCert}
-                    className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold"
+                    className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white text-xs font-semibold cursor-pointer"
                   >
                     + Aggiungi
                   </button>

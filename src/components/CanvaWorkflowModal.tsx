@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ExternalLink, Copy, Check, Sparkles, Layers, Palette, FileText, ArrowRight, X } from 'lucide-react';
+import { ExternalLink, Copy, Check, Sparkles, ArrowRight, X } from 'lucide-react';
 import { CVData } from '../types';
+import { BRAND_LOGOS } from '../utils/brandLogos';
 
 interface CanvaWorkflowModalProps {
   isOpen: boolean;
@@ -23,11 +24,11 @@ export const CanvaWorkflowModal: React.FC<CanvaWorkflowModalProps> = ({
     {
       num: '1',
       title: 'Scarica il PDF dal nostro sito',
-      desc: 'Il nostro PDF viene generato con livelli vettoriali puliti e testo nativo selezionabile, appositamente ottimizzato per il motore di importazione di Canva.',
+      desc: 'Il nostro PDF viene generato con livelli vettoriali puliti e testo nativo selezionabile, ottimizzato per il motore di importazione di Canva.',
       action: (
         <button
           onClick={onDownloadPdf}
-          className="mt-2 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+          className="mt-2 px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-black text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
         >
           <span>Scarica il PDF Adesso</span>
           <ArrowRight className="w-3.5 h-3.5" />
@@ -37,29 +38,30 @@ export const CanvaWorkflowModal: React.FC<CanvaWorkflowModalProps> = ({
     {
       num: '2',
       title: 'Apri Canva & Trascina il file',
-      desc: 'Accedi su Canva.com, clicca in alto a destra su "Carica" o "Importa file" (oppure trascina direttamente il PDF nella home page di Canva).',
+      desc: 'Accedi su Canva.com, clicca in alto su "Carica" o trascina direttamente il file PDF appena scaricato.',
       action: (
         <a
           href="https://www.canva.com/projects"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all shadow-sm"
+          className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white text-xs font-bold transition-all shadow-sm"
         >
+          <img src={BRAND_LOGOS.canva} alt="Canva" className="w-3.5 h-3.5 rounded-xs object-contain" />
           <span>Apri Canva (Importa PDF)</span>
-          <ExternalLink className="w-3.5 h-3.5" />
+          <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
         </a>
       ),
     },
     {
       num: '3',
       title: 'Canva sblocca ogni elemento',
-      desc: 'Canva trasforma automaticamente ogni titolo, blocco di testo, colore ed elenco in livelli grafici 100% modificabili. Puoi aggiungere la tua foto, cambiare font e grafiche a piacere!',
+      desc: 'Canva trasforma automaticamente ogni titolo, blocco di testo ed elenco in livelli grafici 100% modificabili. Puoi aggiungere la tua foto, cambiare font e grafiche a piacere!',
       action: null,
     },
     {
       num: '4',
       title: 'Esporta per Joinrs',
-      desc: 'Quando hai completato il restyling grafico su Canva, clicca su "Condividi" -> "Scarica" -> seleziona formato "PDF Standard", e caricalo su Joinrs per attivare l\'Agente di Carriera!',
+      desc: 'Completata la personalizzazione grafica su Canva, clicca su "Condividi" -> "Scarica" -> "PDF Standard", e caricalo su Joinrs per attivare l\'Agente di Carriera!',
       action: null,
     },
   ];
@@ -96,26 +98,35 @@ ${cv.languages.map((l) => `${l.language}: ${l.level}`).join(', ')}
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-2xl bg-slate-900 border border-cyan-500/30 rounded-2xl p-6 shadow-2xl text-slate-100 space-y-5 my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl text-zinc-100 space-y-5 my-8">
         {/* Header */}
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
-              <Palette className="w-5 h-5" />
+            <div className="w-11 h-11 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center p-2 shrink-0">
+              <img
+                src={BRAND_LOGOS.canva}
+                alt="Canva"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                Come Modificare il tuo CV su Canva
-              </h2>
-              <p className="text-xs text-slate-400">
-                Guida ufficiale all'importazione e personalizzazione grafica
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-bold text-white uppercase tracking-wider">
+                  Modifica il Tuo CV su Canva
+                </h2>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-zinc-800 text-zinc-200 border border-zinc-700">
+                  Importa PDF
+                </span>
+              </div>
+              <p className="text-xs text-zinc-400 mt-0.5">
+                Guida rapida per convertire il PDF in grafica editabile
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
             aria-label="Chiudi guida Canva"
           >
             <X className="w-5 h-5" />
@@ -123,46 +134,47 @@ ${cv.languages.map((l) => `${l.language}: ${l.level}`).join(', ')}
         </div>
 
         {/* Steps Grid */}
-        <div className="space-y-3.5">
+        <div className="space-y-3">
           {steps.map((st, idx) => (
             <div
               key={idx}
-              className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-start gap-3.5 hover:border-slate-700 transition-all"
+              className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800 flex items-start gap-3.5 hover:border-zinc-700 transition-all"
             >
-              <div className="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-xs shrink-0 mt-0.5">
+              <div className="w-6 h-6 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-white font-bold text-xs shrink-0 mt-0.5">
                 {st.num}
               </div>
               <div className="space-y-1 flex-1">
-                <h3 className="text-sm font-semibold text-white">{st.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">{st.desc}</p>
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider">{st.title}</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">{st.desc}</p>
                 {st.action}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Pro Tip Callout */}
-        <div className="p-3.5 rounded-xl bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/20 flex items-start gap-3">
-          <Sparkles className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-          <div className="text-xs text-slate-300 space-y-1">
-            <span className="font-bold text-cyan-300">Suggerimento per Canva:</span>
-            <p>
-              Una volta caricato il PDF su Canva, puoi cercare tra gli elementi grafici "cornice circolare" per inserire la tua foto profilo con un semplice trascinamento.
+        {/* Minimal Pro Tip Callout */}
+        <div className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800 flex items-start gap-3">
+          <Sparkles className="w-4 h-4 text-white shrink-0 mt-0.5" />
+          <div className="text-xs text-zinc-300 space-y-0.5">
+            <span className="font-bold text-white">Consiglio Canva:</span>
+            <p className="text-zinc-400">
+              Una volta aperto il PDF su Canva, usa il menù "Elementi" per aggiungere una cornice rotonda per la foto profilo.
             </p>
           </div>
         </div>
 
         {/* Quick Clipboard Backup */}
-        <div className="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
-          <span className="text-xs text-slate-400">
-            Preferisci incollare direttamente i testi nelle caselle di Canva?
+        <div className="pt-2 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-3">
+          <span className="text-xs text-zinc-400">
+            Preferisci incollare direttamente i testi in una grafica già aperta?
           </span>
           <button
             onClick={handleCopyFormattedText}
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-700"
+            className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-zinc-700"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? 'Testo CV Copiato!' : 'Copia Testo per Canva'}</span>
+            <img src={BRAND_LOGOS.canva} alt="Canva" className="w-3.5 h-3.5 object-contain" />
+            {copied ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? 'Copiato!' : 'Copia Testo per Canva'}</span>
           </button>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { CVData, AtsScoreResult, ExperienceItem, EducationItem } from './utils/c
 
 export type TemplateId = 'milano-modern' | 'executive-minimal' | 'creative-canva';
 export type FontFamily = 'font-sans' | 'font-serif' | 'font-mono';
-export type AccentColor = 'indigo' | 'emerald' | 'sky' | 'rose' | 'slate';
+export type AccentColor = 'black' | 'charcoal' | 'graphite' | 'minimal' | 'slate' | 'indigo' | 'emerald' | 'sky' | 'rose';
 
 export interface JoinrsPreferences {
   targetRole: string;

@@ -4,19 +4,17 @@ import html2canvas from 'html2canvas';
 import {
   Sparkles,
   Palette,
-  Bot,
   Sliders,
   CheckCircle2,
   FileDown,
-  Layers,
   ArrowRight,
   ExternalLink,
-  HelpCircle,
   RotateCcw,
 } from 'lucide-react';
 import { CVData, TemplateId, FontFamily, AccentColor } from './types';
 import { defaultCV } from './utils/initialData';
 import { calculateAtsScore } from './utils/cvLogic';
+import { BRAND_LOGOS } from './utils/brandLogos';
 import { Navbar } from './components/Navbar';
 import { CvEditor } from './components/CvEditor';
 import { CvPreview } from './components/CvPreview';
@@ -30,7 +28,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'editor' | 'preview' | 'canva' | 'joinrs'>('editor');
   const [template, setTemplate] = useState<TemplateId>('milano-modern');
   const [font, setFont] = useState<FontFamily>('font-sans');
-  const [accent, setAccent] = useState<AccentColor>('indigo');
+  const [accent, setAccent] = useState<AccentColor>('black');
 
   // Modals state
   const [isWizardOpen, setIsWizardOpen] = useState(false);
@@ -82,10 +80,9 @@ export default function App() {
       const fileName = `CV_${(cv.personal.fullName || 'Candidato').replace(/\s+/g, '_')}.pdf`;
       pdf.save(fileName);
 
-      showToast(`PDF scaricato con successo: ${fileName}! Pronto per Canva & Joinrs.`);
+      showToast(`PDF scaricato: ${fileName} pronto per Canva & Joinrs.`);
     } catch (err) {
       console.error('PDF export error:', err);
-      // Fallback: trigger print
       showToast('Apertura finestra di stampa nativa A4...');
       window.print();
     } finally {
@@ -94,7 +91,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans selection:bg-white selection:text-black">
       {/* Top Navbar */}
       <Navbar
         activeTab={activeTab}
@@ -106,52 +103,54 @@ export default function App() {
         isDownloading={isDownloading}
       />
 
-      {/* Hero Pipeline Roadmap Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950/60 to-slate-900 border-b border-slate-800/80 py-3 px-4 no-print">
+      {/* Minimal Roadmap Banner */}
+      <div className="bg-zinc-950 border-b border-zinc-800/80 py-3 px-4 no-print">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-ping" />
-            <span className="font-bold text-white">Il Tuo Flusso di Successo:</span>
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+            <span className="font-bold text-white tracking-wide uppercase text-[11px]">
+              Workflow:
+            </span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-slate-300">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-zinc-400">
             <div
               onClick={() => setActiveTab('editor')}
-              className={`flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors ${
-                activeTab === 'editor' ? 'text-indigo-400 font-bold' : ''
+              className={`flex items-center gap-2 cursor-pointer transition-colors ${
+                activeTab === 'editor' ? 'text-white font-bold' : 'hover:text-zinc-200'
               }`}
             >
-              <span className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-[10px]">
+              <span className="w-5 h-5 rounded-full bg-zinc-800 text-white border border-zinc-700 flex items-center justify-center font-bold text-[10px]">
                 1
               </span>
-              <span>Crea CV con AI</span>
+              <span>Crea CV AI</span>
             </div>
-            <ArrowRight className="w-3 h-3 text-slate-600 hidden sm:block" />
+            <ArrowRight className="w-3 h-3 text-zinc-700 hidden sm:block" />
 
             <div
-              onClick={() => {
-                setActiveTab('preview');
-                setIsCanvaGuideOpen(true);
-              }}
-              className="flex items-center gap-1.5 cursor-pointer hover:text-cyan-400 transition-colors"
+              onClick={() => setActiveTab('canva')}
+              className={`flex items-center gap-2 cursor-pointer transition-colors ${
+                activeTab === 'canva' ? 'text-white font-bold' : 'hover:text-zinc-200'
+              }`}
             >
-              <span className="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-[10px]">
+              <span className="w-5 h-5 rounded-full bg-zinc-800 text-white border border-zinc-700 flex items-center justify-center font-bold text-[10px]">
                 2
               </span>
+              <img src={BRAND_LOGOS.canva} alt="Canva" className="w-3.5 h-3.5 rounded-xs object-contain" />
               <span>Scarica PDF & Modifica su Canva</span>
             </div>
-            <ArrowRight className="w-3 h-3 text-slate-600 hidden sm:block" />
+            <ArrowRight className="w-3 h-3 text-zinc-700 hidden sm:block" />
 
             <div
-              onClick={() => {
-                setActiveTab('preview');
-                setIsJoinrsAgentOpen(true);
-              }}
-              className="flex items-center gap-1.5 cursor-pointer hover:text-emerald-400 transition-colors"
+              onClick={() => setActiveTab('joinrs')}
+              className={`flex items-center gap-2 cursor-pointer transition-colors ${
+                activeTab === 'joinrs' ? 'text-white font-bold' : 'hover:text-zinc-200'
+              }`}
             >
-              <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-[10px]">
+              <span className="w-5 h-5 rounded-full bg-zinc-800 text-white border border-zinc-700 flex items-center justify-center font-bold text-[10px]">
                 3
               </span>
+              <img src={BRAND_LOGOS.joinrs} alt="Joinrs" className="w-3.5 h-3.5 rounded-xs object-contain" />
               <span>Allega su Joinrs & Attiva Agente</span>
             </div>
           </div>
@@ -159,11 +158,11 @@ export default function App() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setCv(defaultCV)}
-              className="text-slate-400 hover:text-white flex items-center gap-1 text-[11px] cursor-pointer"
+              className="text-zinc-500 hover:text-white flex items-center gap-1.5 text-[11px] cursor-pointer transition-colors"
               title="Reimposta dati di esempio"
             >
               <RotateCcw className="w-3 h-3" />
-              <span>Reset Dati</span>
+              <span>Reset</span>
             </button>
           </div>
         </div>
@@ -171,10 +170,10 @@ export default function App() {
 
       {/* Main Body Layout */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
-        {/* Toast Feedback */}
+        {/* Minimal Toast Feedback */}
         {feedbackToast && (
-          <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-slate-900 border border-indigo-500/40 text-white text-xs font-semibold shadow-2xl flex items-center gap-2 animate-bounce">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 text-white text-xs font-semibold shadow-2xl flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-white" />
             <span>{feedbackToast}</span>
           </div>
         )}
@@ -184,14 +183,14 @@ export default function App() {
           {/* If Editor tab is active */}
           {activeTab === 'editor' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Left Column: Comprehensive Form Editor */}
+              {/* Left Column: Form Editor */}
               <div className="lg:col-span-6 space-y-4">
-                <div className="flex items-center justify-between pb-1">
-                  <h2 className="text-base font-bold text-white flex items-center gap-2">
-                    <Sliders className="w-4 h-4 text-indigo-400" />
-                    Compila i Tuoi Dati & Potenzia con AI
+                <div className="flex items-center justify-between pb-1 border-b border-zinc-800/80">
+                  <h2 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <Sliders className="w-4 h-4 text-zinc-400" />
+                    Compila i Tuoi Dati & Ottimizza
                   </h2>
-                  <span className="text-xs text-slate-400">Salvataggio automatico</span>
+                  <span className="text-xs text-zinc-500">Salvataggio automatico</span>
                 </div>
                 <CvEditor
                   cv={cv}
@@ -202,16 +201,16 @@ export default function App() {
 
               {/* Right Column: Live Sticky Mini-Preview */}
               <div className="lg:col-span-6 lg:sticky lg:top-24 space-y-3">
-                <div className="flex items-center justify-between pb-1">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                    <Palette className="w-3.5 h-3.5 text-indigo-400" />
-                    Anteprima in Tempo Reale
+                <div className="flex items-center justify-between pb-1 border-b border-zinc-800/80">
+                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <Palette className="w-3.5 h-3.5 text-zinc-400" />
+                    Anteprima A4 in Tempo Reale
                   </span>
                   <button
                     onClick={() => setActiveTab('preview')}
-                    className="text-xs text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1 cursor-pointer"
+                    className="text-xs text-zinc-300 hover:text-white font-semibold flex items-center gap-1 cursor-pointer transition-colors"
                   >
-                    <span>Espandi a Schermo Intero</span>
+                    <span>Schermo Intero</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -253,74 +252,84 @@ export default function App() {
           {/* If Canva tab is active */}
           {activeTab === 'canva' && (
             <div className="space-y-6">
-              <div className="p-6 rounded-2xl bg-slate-900 border border-cyan-500/30 space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center text-white">
-                    <Palette className="w-5 h-5" />
+              <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center p-2 shrink-0">
+                    <img
+                      src={BRAND_LOGOS.canva}
+                      alt="Canva"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white">
-                      Guida all'Importazione e Modifica su Canva
-                    </h2>
-                    <p className="text-xs text-slate-400">
-                      Canva dispone della funzione "Importa PDF" per trasformare questo documento in livelli grafici sbloccati.
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-lg font-bold text-white tracking-tight">
+                        Importazione e Modifica su Canva
+                      </h2>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-zinc-800 text-zinc-200 border border-zinc-700">
+                        PDF Vettoriale A4
+                      </span>
+                    </div>
+                    <p className="text-xs text-zinc-400 mt-0.5">
+                      Canva sblocca testo, font, titoli e icone convertendo il PDF in elementi grafici 100% editabili.
                     </p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                    <span className="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5 pt-2">
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/80 space-y-2">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-white border border-zinc-700 flex items-center justify-center font-bold text-xs">
                       1
                     </span>
-                    <h3 className="text-sm font-bold text-white">Scarica il PDF</h3>
-                    <p className="text-xs text-slate-400">
-                      Usa il pulsante qui sotto per ottenere il file A4 pronto.
+                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">Scarica il PDF</h3>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Genera il file A4 vettoriale con livelli strutturati.
                     </p>
                     <button
                       onClick={handleDownloadPdf}
-                      className="mt-2 w-full py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-bold"
+                      className="mt-2 w-full py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-black text-xs font-bold transition-all cursor-pointer"
                     >
                       Scarica PDF
                     </button>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                    <span className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/80 space-y-2">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-white border border-zinc-700 flex items-center justify-center font-bold text-xs">
                       2
                     </span>
-                    <h3 className="text-sm font-bold text-white">Accedi a Canva</h3>
-                    <p className="text-xs text-slate-400">
-                      Vai nella tua dashboard Canva e clicca "Carica".
+                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">Accedi a Canva</h3>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Apri Canva e trascina il PDF o clicca "Carica".
                     </p>
                     <a
                       href="https://www.canva.com/projects"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-flex w-full items-center justify-center gap-1 py-1.5 rounded-lg bg-cyan-600 text-white text-xs font-bold"
+                      className="mt-2 inline-flex w-full items-center justify-center gap-1.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white text-xs font-bold transition-all"
                     >
+                      <img src={BRAND_LOGOS.canva} alt="Canva" className="w-3.5 h-3.5 object-contain" />
                       <span>Apri Canva</span>
-                      <ExternalLink className="w-3 h-3" />
+                      <ExternalLink className="w-3 h-3 text-zinc-400" />
                     </a>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                    <span className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/80 space-y-2">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-white border border-zinc-700 flex items-center justify-center font-bold text-xs">
                       3
                     </span>
-                    <h3 className="text-sm font-bold text-white">Personalizza la Grafica</h3>
-                    <p className="text-xs text-slate-400">
-                      Canva sblocca font, colori, icone e ti consente di aggiungere foto profilo in 1 click.
+                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">Personalizza</h3>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Inserisci la tua foto, rifinisci font o grafiche con gli strumenti di Canva.
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                    <span className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">
+                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/80 space-y-2">
+                    <span className="w-6 h-6 rounded-full bg-zinc-800 text-white border border-zinc-700 flex items-center justify-center font-bold text-xs">
                       4
                     </span>
-                    <h3 className="text-sm font-bold text-white">Carica su Joinrs</h3>
-                    <p className="text-xs text-slate-400">
-                      Esporta il PDF definitivo e allegalo al tuo account Joinrs per attivare l'agente.
+                    <h3 className="text-xs font-bold text-white uppercase tracking-wider">Carica su Joinrs</h3>
+                    <p className="text-xs text-zinc-400 leading-relaxed">
+                      Esporta da Canva in PDF e allegalo su Joinrs per attivare l'agente di carriera.
                     </p>
                   </div>
                 </div>
@@ -345,31 +354,40 @@ export default function App() {
           {/* If Joinrs tab is active */}
           {activeTab === 'joinrs' && (
             <div className="space-y-6">
-              <div className="p-6 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-teal-950/60 border border-emerald-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-                    <Bot className="w-7 h-7" />
+              <div className="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center p-2 shrink-0">
+                    <img
+                      src={BRAND_LOGOS.joinrs}
+                      alt="Joinrs"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-white">
-                      Centro Agente di Carriera Joinrs
-                    </h2>
-                    <p className="text-xs text-slate-300">
-                      Genera la configurazione, il prompt intelligente e i pitch di candidatura automatica per trovare il lavoro ideale su Joinrs.
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-lg font-bold text-white tracking-tight">
+                        Centro Agente di Carriera Joinrs
+                      </h2>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-zinc-800 text-zinc-200 border border-zinc-700">
+                        AI Matching
+                      </span>
+                    </div>
+                    <p className="text-xs text-zinc-400 mt-0.5">
+                      Genera il prompt di configurazione, i pitch di candidatura e invia il tuo CV alle offerte compatibili.
                     </p>
                   </div>
                 </div>
 
                 <button
                   onClick={() => setIsJoinrsAgentOpen(true)}
-                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/20 transition-all cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-white text-black hover:bg-zinc-200 font-bold text-xs flex items-center gap-2 shadow-sm transition-all cursor-pointer"
                 >
-                  <Bot className="w-4 h-4" />
-                  <span>Configura & Visualizza Agente Joinrs</span>
+                  <img src={BRAND_LOGOS.joinrs} alt="Joinrs" className="w-4 h-4 object-contain" />
+                  <span>Configura Agente Joinrs</span>
                 </button>
               </div>
 
-              {/* Render Joinrs interactive agent right on the page */}
+              {/* Render Joinrs interactive agent inline */}
               <JoinrsAgentModal
                 isOpen={true}
                 onClose={() => setActiveTab('editor')}
